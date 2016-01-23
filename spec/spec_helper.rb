@@ -2,6 +2,7 @@
 # files. keep this file as light-weight as possible.
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+require 'email_scrapper'
 
 RSpec.configure do |config|
 

@@ -1,0 +1,3 @@
+class EmailScrapper
+
+end
