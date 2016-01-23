@@ -3,6 +3,8 @@
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'email_scrapper'
+require 'email_collection'
+
 
 RSpec.configure do |config|
 

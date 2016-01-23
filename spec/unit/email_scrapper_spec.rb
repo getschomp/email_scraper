@@ -1,5 +1,7 @@
 require 'spec_helper'
-require "rspec"
+require 'nokogiri'
+require 'pry'
+
 
 RSpec.describe EmailScrapper do
 
@@ -8,29 +10,36 @@ RSpec.describe EmailScrapper do
   # followed by an Internet domain.  The locally interpreted string is either a
   # quoted-string or a dot-atom.
 
-  describe '.find_within' do
+  describe '.find' do
     before(:each) do
-      file_path = File.expand_path("../../", __FILE__) + '/spec/jana_contact.html'
-      @contact_page = File.open(file_path) { |file| Nokogiri::HTML(file) }
-      @scrapper = EmailScrapper.new
+      file_path = File.expand_path("../../", __FILE__) + '/jana_contact.html'
+      scrapper = EmailScrapper.new
+      scrapper.document = File.open(file_path) { |file| Nokogiri::HTML(file) }
+      @emails = scrapper.find.map(&:address)
     end
 
     context 'within the document text and surrounded by spaces' do
       it 'finds an email' do
-        expect @email_scrapper.find_within(@contact_page).to include('bob@gmail.com')
+        expect(@emails).to include('bob@gmail.com')
       end
     end
 
-    context 'within an html link tag' do
+    context 'within an non-breaking space' do
       it 'finds an email' do
-        expect @scrapper.find_within(@contact_page).to include('sales@jana.com')
+        expect(@emails).to include('sales@jana.com')
+      end
+    end
+
+    context 'with a link tag' do
+      it 'finds an email' do
+        expect(@emails).to include('more_info@jana.com')
       end
     end
 
     context 'with trailing non-alphanumeric characters' do
       it 'finds an email' do
-        expect @scrapper.find_within(@contact_page).to include('jon@exact.ly')
-        expect @scrapper.find_within(@contact_page).to include('allison@gmail.com')
+        expect(@emails).to include('jon@exact.ly')
+        expect(@emails).to include('allison@gmail.com')
       end
     end
   end

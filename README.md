@@ -23,11 +23,11 @@ bundle install
 Run a ruby file with the desired domain name appended.
 
 ```
-ruby email_addresses.rb <desired domain>
+ruby email_scrapper.rb <desired domain>
 ```
 
 For example,
 
 ```
-ruby email_addresses.rb www.tumblr.com
+ruby email_scrapper.rb www.tumblr.com
 ```

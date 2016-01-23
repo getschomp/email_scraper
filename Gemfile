@@ -10,4 +10,4 @@ group :test do
 end
 
 gem 'nokogiri'
-gem 'valid_email'
+gem 'mail'
