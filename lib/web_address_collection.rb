@@ -1,0 +1,4 @@
+class WebAddressCollection
+
+
+end

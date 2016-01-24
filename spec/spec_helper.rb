@@ -2,9 +2,16 @@
 # files. keep this file as light-weight as possible.
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
-require 'email_scrapper'
-require 'email_collection'
+require 'email_scraper'
+require 'web_address_scraper'
+require 'webmock/rspec'
+require 'vcr'
 
+VCR.configure do |config|
+  config.allow_http_connections_when_no_cassette = true
+  config.cassette_library_dir = "fixtures/vcr_cassettes"
+  config.hook_into :webmock # or :fakeweb
+end
 
 RSpec.configure do |config|
 

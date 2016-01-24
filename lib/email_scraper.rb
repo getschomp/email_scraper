@@ -2,18 +2,13 @@ require 'open-uri'
 require 'mail'
 require 'email_collection'
 
-class EmailScrapper
-# Run the scrapper with EmailScrapper.new('website_path').find
+class EmailScraper
+# Run the scraper with EmailScraper.new('website_path').find
 
   attr_accessor :document
 
-  def initialize(website = nil)
-    @document = nokogiri_document(website) if website
-  end
-
-  def document_without_tags
-    # remove non-breaking spaces and html tags
-    @document.xpath("//text()").to_s
+  def initialize(website_path = nil)
+    @document = Nokogiri::HTML(open(website_path)) if website_path
   end
 
   def find
@@ -24,9 +19,17 @@ class EmailScrapper
     emails.all.map { |email| Mail::Address.new(email) }
   end
 
+  private
+
+  def document_without_tags
+    # remove non-breaking spaces and html tags
+    @document.xpath("//text()").to_s
+  end
+
   def find_within_webpage_text
     words = document_without_tags.split(' ')
-    words = words.flat_map { |w| w.split(160.chr("UTF-8")) }
+    non_breaking_space = 160.chr("UTF-8")
+    words = words.flat_map { |w| w.split(non_breaking_space) }
     # Note: Regex will find strings with one @, and a period following
     # there are characters before and after each @ and .
     emails = words.grep(/^[^@]+@[^@]+\.[^@]+$/)

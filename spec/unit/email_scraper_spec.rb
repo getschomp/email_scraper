@@ -1,9 +1,6 @@
-require 'spec_helper'
 require 'nokogiri'
-require 'pry'
 
-
-RSpec.describe EmailScrapper do
+RSpec.describe EmailScraper do
 
   # An addr-spec is a specific Internet identifier that contains a locally
   # interpreted string followed by the at-sign character ("@", ASCII value 64)
@@ -11,11 +8,12 @@ RSpec.describe EmailScrapper do
   # quoted-string or a dot-atom.
 
   describe '.find' do
+
     before(:each) do
       file_path = File.expand_path("../../", __FILE__) + '/jana_contact.html'
-      scrapper = EmailScrapper.new
-      scrapper.document = File.open(file_path) { |file| Nokogiri::HTML(file) }
-      @emails = scrapper.find.map(&:address)
+      scraper = EmailScraper.new
+      scraper.document = File.open(file_path) { |file| Nokogiri::HTML(file) }
+      @emails = scraper.find.map(&:address)
     end
 
     context 'within the document text and surrounded by spaces' do
@@ -42,12 +40,7 @@ RSpec.describe EmailScrapper do
         expect(@emails).to include('allison@gmail.com')
       end
     end
-  end
 
-  # describe '.validate_email' do
-  #   it 'rejects emails without an mx domain' do
-  #
-  #   end
-  # end
+  end
 
 end

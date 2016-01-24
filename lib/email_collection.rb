@@ -1,13 +1,24 @@
+require 'valid_email'
+
 class EmailCollection
 
-  attr_accessor :all
+  attr_reader :all
 
   def initialize
     @all = []
   end
 
-  def validate_all
+  def all=(collection)
+    # validate the emails added to the collection
+    @all = collection
+    validate_email_domains
+  end
 
+  def validate_email_domains
+    @all.select! do |email|
+      ValidateEmail.valid?(email)
+      ValidateEmail.mx_valid?(email)
+    end
   end
 
 end
