@@ -47,7 +47,6 @@ class MainExecution
       @emails = @emails + email_scraper.find
       web_addresses = web_scraper.find
       web_addresses.reject! { |a| @recorded_addresses.map(&:uri).include?(a.uri) }
-      puts "new links found on page #{web_addresses.map(&:uri)}"
       @recorded_addresses = @recorded_addresses + web_addresses
       @recorded_addresses = @recorded_addresses.uniq(&:uri).sort_by(&:uri)
       @visited_addresses = @visited_addresses.uniq(&:uri).sort_by(&:uri)

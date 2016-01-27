@@ -37,5 +37,10 @@ For example,
 ruby lib/find_email_addresses.rb jana.com
 ```
 
+To run the tests
+```
+rspec spec
+```
+
 ### Disclaimer
 This might not parse every web address out there in the wild, but I found the context surrounding the link to be the most meaningful way of ensuring that what seems link a link is one.
