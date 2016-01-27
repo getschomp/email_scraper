@@ -8,9 +8,9 @@ class WebAddressScraper
 
 
   def initialize(web_address = nil, intended_domain)
+      new_session
       # the guard statement, allows tests set up using vcr
       return if !web_address
-      new_session
       # TODO:Refactor to initiate a headless browser session only once for both
       #scraper classes
       @web_address = web_address

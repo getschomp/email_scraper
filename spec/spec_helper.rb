@@ -16,11 +16,6 @@ VCR.configure do |config|
   config.hook_into :webmock # or :fakeweb
 end
 
-Capybara.configure do |config|
-  config.run_server = false
-  config.default_driver = :poltergeist
-end
-
 RSpec.configure do |config|
 
 config.expect_with :rspec do |expectations|
@@ -36,7 +31,6 @@ config.expect_with :rspec do |expectations|
     config.run_all_when_everything_filtered = true
     config.example_status_persistence_file_path = "spec/examples.txt"
     config.disable_monkey_patching!
-    config.warnings = true
     if config.files_to_run.one?
       config.default_formatter = 'doc'
     end

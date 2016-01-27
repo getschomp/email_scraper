@@ -12,8 +12,10 @@ RSpec.describe WebAddressScraper do
     # using vcr when possible for less external dependencies
       before(:each) do
         VCR.use_cassette("tumblr") do
-          @scraper = WebAddressScraper.new
-          @scraper.web_address = WebAddress.new('https://www.tumblr.com/', 'tumblr.com')
+          url_to_visit = 'https://www.tumblr.com/'
+          intended_domain = 'tumblr.com'
+          web_address = WebAddress.new(url_to_visit, intended_domain)
+          @scraper = WebAddressScraper.new(web_address, intended_domain)
           response = Net::HTTP.get_response(URI(@scraper.web_address.uri))
           @scraper.document = Nokogiri::HTML(response.body)
           @web_addresses = @scraper.find.map(&:uri)
@@ -39,7 +41,7 @@ RSpec.describe WebAddressScraper do
       end
 
       it 'finds a links on the page within the domain' do
-        expect(@web_addresses).to include(@scraper.uri + 'contact')
+        expect(@web_addresses).to include(@scraper.web_address.uri + 'contact')
       end
 
     end

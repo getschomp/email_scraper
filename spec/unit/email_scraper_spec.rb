@@ -1,11 +1,7 @@
 require 'nokogiri'
 
-RSpec.describe EmailScraper do
 
-  # An addr-spec is a specific Internet identifier that contains a locally
-  # interpreted string followed by the at-sign character ("@", ASCII value 64)
-  # followed by an Internet domain.  The locally interpreted string is either a
-  # quoted-string or a dot-atom.
+RSpec.describe EmailScraper do
 
   describe '.find' do
 

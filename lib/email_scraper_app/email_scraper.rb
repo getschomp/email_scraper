@@ -11,8 +11,8 @@ class EmailScraper
   attr_accessor :document
 
   def initialize(website_path = nil)
-      return if !website_path
       new_session
+      return if !website_path
       @home_page = website_path
       visit(@home_page)
       @document = Nokogiri::HTML(html)
