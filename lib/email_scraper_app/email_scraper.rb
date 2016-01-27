@@ -1,14 +1,24 @@
 require 'open-uri'
 require 'mail'
-require 'email_collection'
+require_relative 'email_collection'
+require_relative 'headless_browser'
 
 class EmailScraper
 # Run the scraper with EmailScraper.new('website_path').find
 
+  include HeadlessBrowser
+
   attr_accessor :document
 
   def initialize(website_path = nil)
-    @document = Nokogiri::HTML(open(website_path)) if website_path
+      return if !website_path
+      new_session
+      @home_page = website_path
+      visit(@home_page)
+      @document = Nokogiri::HTML(html)
+    rescue Capybara::Poltergeist::TimeoutError
+    ensure
+      quit
   end
 
   def find

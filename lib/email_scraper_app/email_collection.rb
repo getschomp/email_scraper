@@ -9,7 +9,6 @@ class EmailCollection
   end
 
   def all=(collection)
-    # validate the emails added to the collection
     @all = collection
     validate_email_domains
   end

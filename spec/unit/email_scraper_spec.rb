@@ -9,6 +9,7 @@ RSpec.describe EmailScraper do
 
   describe '.find' do
 
+    #TODO: switch to VCR here and consolidate methods
     before(:each) do
       file_path = File.expand_path("../../", __FILE__) + '/jana_contact.html'
       scraper = EmailScraper.new

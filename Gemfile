@@ -7,11 +7,13 @@ end
 
 group :test do
   gem 'rspec'
+  gem 'webmock'
+  gem 'vcr'
 end
 
 gem 'nokogiri'
 gem 'mail'
 gem 'valid_email'
-gem 'webmock'
-gem 'vcr'
-gem 'selenium-webdriver', '~> 2.49'
+gem 'capybara'
+gem 'poltergeist'
+gem 'public_suffix'
